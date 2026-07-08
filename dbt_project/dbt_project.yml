@@ -1,0 +1,15 @@
+name: 'my_spark_project' 
+version: '1.0.0'
+config-version: 2
+
+on-run-start:
+  - "USE nessie"
+  
+profile: 'my_spark_project' 
+
+model-paths: ["models"]
+
+models:
+  my_spark_project: 
+    +materialized: table
+    

@@ -1,0 +1,1 @@
+SET spark.sql.catalog.nessie.catalog-impl=org.apache.iceberg.nessie.NessieCatalog

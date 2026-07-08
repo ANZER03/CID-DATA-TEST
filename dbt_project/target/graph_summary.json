@@ -1,0 +1,1 @@
+{"_invocation_id": "f0f3b623-0714-4c2f-95ce-2af5588aff65", "linked": {"0": {"name": "source.my_spark_project.nessie_source.transactions", "type": "source"}, "1": {"name": "operation.my_spark_project.my_spark_project-on-run-start-0", "type": "operation"}, "2": {"name": "model.my_spark_project.silver_transactions", "type": "model"}}}

@@ -1,0 +1,12 @@
+my_spark_project:
+  outputs:
+    dev:
+      type: spark
+      method: thrift
+      host: spark
+      port: 10000
+      schema: silver 
+      user: root
+      threads: 1
+      catalog: nessie
+  target: dev
