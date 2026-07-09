@@ -15,8 +15,10 @@ RUN apt-get update && apt-get install -y \
 RUN git config --global --add safe.directory /opt/airflow/dbt
 
 USER airflow
-# Install dbt-spark
-RUN pip install --no-cache-dir "dbt-spark[PyHive]==1.7.1"
+# Install dbt-spark with Nessie support
+RUN pip install --no-cache-dir \
+    "dbt-spark[PyHive]==1.7.1" \
+    "dbt-nessie==0.21.1"
 
 # Copy DAGs, dbt project and scripts into the image (no bind mounts needed)
 COPY dags/ /opt/airflow/dags/
