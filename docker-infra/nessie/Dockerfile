@@ -1,0 +1,1 @@
+FROM projectnessie/nessie:latest

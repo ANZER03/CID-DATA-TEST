@@ -7,7 +7,7 @@ from faker import Faker
 fake = Faker()
 
 producer = KafkaProducer(
-    bootstrap_servers=['kafka:29092'],
+    bootstrap_servers=['kafka:9092'],
     value_serializer=lambda v: json.dumps(v).encode('utf-8')
 )
 
