@@ -87,10 +87,28 @@ docker exec -d spark bash -c "/opt/spark/sbin/start-thriftserver.sh --hiveconf h
 ---
 
 ### 7. Start Apache Airflow
-Once the Thrift Server is initialized, start the Airflow orchestrator:
+Build and start the Airflow orchestrator (the image now includes Spark + all JARs for the silver job):
 ```bash
-docker compose -f new-docker-compose.yml up -d airflow
+docker-compose -f new-docker-compose.yml build airflow
+docker-compose -f new-docker-compose.yml up -d airflow
 ```
+
+#### 7.1 Create the Airflow Admin User
+After the container starts, create a user to log in to the Airflow UI:
+```bash
+docker exec airflow airflow users create \
+  --username admin \
+  --password admin \
+  --firstname Admin \
+  --lastname User \
+  --role Admin \
+  --email admin@example.com
+```
+To retrieve the auto-generated password from Airflow standalone logs:
+```bash
+docker logs airflow 2>&1 | grep -i "password"
+```
+*Access the UI at **http://localhost:18084** with the username and password shown in the output.*
 
 ---
 

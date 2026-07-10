@@ -159,21 +159,26 @@ services:
     networks:
       - data-network
 
-  # 6. ORCHESTRATION: Airflow
+  # 6. ORCHESTRATION: Airflow (with Spark baked in)
   airflow:
     build:
       context: .
       dockerfile: ./docker-infra/airflow/Dockerfile
-    image: custom-airflow:latest
+    image: custom-airflow-spark:latest
     container_name: airflow
     depends_on:
-      - spark
+      - nessie
+      - minio
     ports:
       - "18084:8080"
     environment:
       - AIRFLOW__CORE__EXECUTOR=SequentialExecutor
       - AIRFLOW__CORE__SQL_ALCHEMY_CONN=sqlite:////opt/airflow/airflow.db
       - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      # MinIO credentials forwarded to spark-submit
+      - AWS_ACCESS_KEY_ID=admin
+      - AWS_SECRET_ACCESS_KEY=password
+      - AWS_REGION=us-east-1
     volumes:
       - airflow-db:/opt/airflow
     command: standalone
