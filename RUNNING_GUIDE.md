@@ -136,3 +136,28 @@ To check the logs and ensure everything is running correctly:
   ```bash
   docker compose -f new-docker-compose.yml logs -f spark
   ```
+
+---
+
+## Clean MinIO Buckets (before re-running jobs)
+
+To wipe all data from a bucket before re-running a pipeline:
+
+* **Clean the Silver bucket:**
+  ```bash
+  docker run --rm --network data-network --entrypoint "" minio/mc:latest \
+    /bin/sh -c "mc alias set local http://minio:9000 admin password && mc rm --recursive --force local/silver/"
+  ```
+
+* **Clean the Gold bucket:**
+  ```bash
+  docker run --rm --network data-network --entrypoint "" minio/mc:latest \
+    /bin/sh -c "mc alias set local http://minio:9000 admin password && mc rm --recursive --force local/gold/"
+  ```
+
+* **Clean both Silver and Gold:**
+  ```bash
+  docker run --rm --network data-network --entrypoint "" minio/mc:latest \
+    /bin/sh -c "mc alias set local http://minio:9000 admin password && mc rm --recursive --force local/silver/ && mc rm --recursive --force local/gold/"
+  ```
+
